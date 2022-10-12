@@ -6,6 +6,8 @@ import com.drc.test.exception.GlobalError;
 import com.drc.test.service.StudentService;
 import com.drc.test.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +36,15 @@ public class StudentController {
     @GetMapping("/student/{id}")
     ResponseEntity<Student> getOne(@PathVariable Long id) {
         return new ResponseEntity<>(studentService.findOne(id), HttpStatus.FOUND);
+    }
+
+    @PutMapping("/student")
+    ResponseEntity<Student> updateStudent(@RequestBody Student student) {
+        return new ResponseEntity<>(studentService.update(student), HttpStatus.OK);
+    }
+
+    @GetMapping("/student/all")
+    PageImpl<Student> getAllStudents(Pageable pageable) {
+        return studentService.getAll(pageable);
     }
 }

@@ -56,13 +56,13 @@ public class TeacherController {
             // Step - 1 : Validating username and password using AuthenticationManager
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+                            authenticationRequest.getEmail(), authenticationRequest.getPassword()));
         } catch (BadCredentialsException ex) {
             throw new Exception("Invalid Username or Password !!!");
         }
 
         //Step - 2 : Get username from the UserDetailsService
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(authenticationRequest.getEmail());
 
         //Step- 3 : Generating Token from JwtUtil class
         String token = jwtUtil.generateToken(userDetails);
