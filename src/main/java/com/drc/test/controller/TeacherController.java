@@ -34,6 +34,11 @@ public class TeacherController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    /**
+     * /POST: Register teacher
+     *
+     * @param teacher the entity.
+     */
     @PostMapping("/register")
     ResponseEntity<?> createTeacher(@RequestBody Teacher teacher) {
         if (!Validation.emailValidation(teacher.getEmail())) {
@@ -49,6 +54,11 @@ public class TeacherController {
         return new ResponseEntity<>(teacherService.save(teacher), HttpStatus.OK);
     }
 
+    /**
+     * /POST: Login teacher
+     *
+     * @param authenticationRequest the username and password.
+     */
     @PostMapping("/login")
     public ResponseEntity<?> generateToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 

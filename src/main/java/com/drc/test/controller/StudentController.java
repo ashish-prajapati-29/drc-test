@@ -21,6 +21,11 @@ public class StudentController {
     @Autowired
     private TeacherService teacherService;
 
+    /**
+     * /POST: Save student
+     *
+     * @param student the entity.
+     */
     @PostMapping("/student")
     ResponseEntity<?> createStudent(@RequestBody Student student) {
         if (!Validation.ageValidation(student.getAge())) {
@@ -33,16 +38,31 @@ public class StudentController {
         return new ResponseEntity<>(studentService.save(student), HttpStatus.OK);
     }
 
+    /**
+     * /GET: get student
+     *
+     * @param id the entity.
+     */
     @GetMapping("/student/{id}")
     ResponseEntity<Student> getOne(@PathVariable Long id) {
         return new ResponseEntity<>(studentService.findOne(id), HttpStatus.FOUND);
     }
 
+    /**
+     * /PUT: update the student
+     *
+     * @param student the entity.
+     */
     @PutMapping("/student")
     ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         return new ResponseEntity<>(studentService.update(student), HttpStatus.OK);
     }
 
+    /**
+     * /PUT: get all the student
+     *
+     * @param pageable the pageable object.
+     */
     @GetMapping("/student/all")
     PageImpl<Student> getAllStudents(Pageable pageable) {
         return studentService.getAll(pageable);
